@@ -1,0 +1,189 @@
+diff -ru libstdc++-v3.old/libsupc++/eh_terminate.cc libstdc++-v3/libsupc++/eh_terminate.cc
+--- libstdc++-v3.old/libsupc++/eh_terminate.cc	2014-06-13 21:06:34.327204816 +0200
++++ libstdc++-v3/libsupc++/eh_terminate.cc	2014-06-13 21:07:14.583207069 +0200
+@@ -34,10 +34,10 @@
+ void
+ __cxxabiv1::__terminate (std::terminate_handler handler)
+ {
+-  try {
++  __try {
+     handler ();
+     std::abort ();
+-  } catch (...) {
++  } __catch (...) {
+     std::abort ();
+   }
+ }
+diff -ru libstdc++-v3.old/libsupc++/new_opnt.cc libstdc++-v3/libsupc++/new_opnt.cc
+--- libstdc++-v3.old/libsupc++/new_opnt.cc	2014-06-13 21:06:34.327204816 +0200
++++ libstdc++-v3/libsupc++/new_opnt.cc	2014-06-13 21:07:27.175207773 +0200
+@@ -47,11 +47,11 @@
+       new_handler handler = __new_handler;
+       if (! handler)
+ 	return 0;
+-      try
++      __try
+ 	{
+ 	  handler ();
+ 	}
+-      catch (bad_alloc &)
++      __catch (bad_alloc &)
+ 	{
+ 	  return 0;
+ 	}
+diff -ru libstdc++-v3.old/libsupc++/vec.cc libstdc++-v3/libsupc++/vec.cc
+--- libstdc++-v3.old/libsupc++/vec.cc	2014-06-13 21:06:34.327204816 +0200
++++ libstdc++-v3/libsupc++/vec.cc	2014-06-13 21:08:29.011211234 +0200
+@@ -95,12 +95,12 @@
+ 	reinterpret_cast <std::size_t *> (base)[-2] = element_size;
+ #endif
+       }
+-    try
++    __try
+       {
+ 	__cxa_vec_ctor(base, element_count, element_size,
+ 		       constructor, destructor);
+       }
+-    catch (...)
++    __catch (...)
+       {
+ 	{
+ 	  uncatch_exception ue;
+@@ -133,12 +133,12 @@
+ 	reinterpret_cast <std::size_t *> (base)[-2] = element_size;
+ #endif
+       }
+-    try
++    __try
+       {
+ 	__cxa_vec_ctor(base, element_count, element_size,
+ 		       constructor, destructor);
+       }
+-    catch (...)
++    __catch (...)
+       {
+ 	{
+ 	  uncatch_exception ue;
+@@ -160,13 +160,13 @@
+     std::size_t ix = 0;
+     char *ptr = static_cast<char *>(array_address);
+     
+-    try
++    __try
+       {
+ 	if (constructor)
+ 	  for (; ix != element_count; ix++, ptr += element_size)
+ 	    constructor(ptr);
+       }
+-    catch (...)
++    __catch (...)
+       {
+ 	{
+ 	  uncatch_exception ue;
+@@ -190,14 +190,14 @@
+     char *dest_ptr = static_cast<char *>(dest_array);
+     char *src_ptr = static_cast<char *>(src_array);
+     
+-    try
++    __try
+       {
+ 	if (constructor)
+ 	  for (; ix != element_count; 
+ 	       ix++, src_ptr += element_size, dest_ptr += element_size)
+ 	    constructor(dest_ptr, src_ptr);
+       }
+-    catch (...)
++    __catch (...)
+       {
+ 	{
+ 	  uncatch_exception ue;
+@@ -222,7 +222,7 @@
+ 
+ 	ptr += element_count * element_size;
+ 
+-	try
++	__try
+ 	  {
+ 	    while (ix--)
+ 	      {
+@@ -230,7 +230,7 @@
+ 		destructor(ptr);
+ 	      }
+ 	  }
+-	catch (...)
++	__catch (...)
+ 	  {
+ 	    {
+ 	      uncatch_exception ue;
+@@ -257,7 +257,7 @@
+ 
+ 	ptr += element_count * element_size;
+ 
+-	try
++	__try
+ 	  {
+ 	    while (ix--)
+ 	      {
+@@ -265,7 +265,7 @@
+ 		destructor(ptr);
+ 	      }
+ 	  }
+-	catch (...)
++	__catch (...)
+ 	  {
+ 	    std::terminate();
+ 	  }
+@@ -300,12 +300,12 @@
+       {
+ 	std::size_t element_count = reinterpret_cast<std::size_t *>(base)[-1];
+ 	base -= padding_size;
+-	try
++	__try
+ 	  {
+ 	    __cxa_vec_dtor(array_address, element_count, element_size,
+ 			   destructor);
+ 	  }
+-	catch (...)
++	__catch (...)
+ 	  {
+ 	    {
+ 	      uncatch_exception ue;
+@@ -335,12 +335,12 @@
+ 	std::size_t element_count = reinterpret_cast<std::size_t *> (base)[-1];
+ 	base -= padding_size;
+ 	size = element_count * element_size + padding_size;
+-	try
++	__try
+ 	  {
+ 	    __cxa_vec_dtor(array_address, element_count, element_size,
+ 			   destructor);
+ 	  }
+-	catch (...)
++	__catch (...)
+ 	  {
+ 	    {
+ 	      uncatch_exception ue;
+diff -ru libstdc++-v3.old/libsupc++/vterminate.cc libstdc++-v3/libsupc++/vterminate.cc
+--- libstdc++-v3.old/libsupc++/vterminate.cc	2014-06-13 21:06:34.327204816 +0200
++++ libstdc++-v3/libsupc++/vterminate.cc	2014-06-13 21:08:58.775212900 +0200
+@@ -75,9 +75,9 @@
+ 
+ 	// If the exception is derived from std::exception, we can
+ 	// give more information.
+-	try { __throw_exception_again; }
++	__try { __throw_exception_again; }
+ #ifdef __EXCEPTIONS
+-	catch (exception &exc)
++	__catch (exception &exc)
+ 	  {
+ 	    char const *w = exc.what();
+ 	    fputs("  what():  ", stderr);
+@@ -85,7 +85,7 @@
+ 	    fputs("\n", stderr);
+           }
+ #endif
+-	catch (...) { }
++	__catch (...) { }
+       }
+     else
+       fputs("terminate called without an active exception\n", stderr);
