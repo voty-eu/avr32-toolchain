@@ -453,6 +453,7 @@ patch-gcc stamps/patch-gcc: stamps/extract-gcc stamps/extract-avr32patches
 	done ; \
 	patch -N -p0 <../patches/gcc/00-libstdc++-shared_ptr-without-rtti-bug-42019.patch ; \
 	patch -N -p0 <../patches/gcc/01-gcc-floor_log2-error.patch ; \
+	patch -N -p0 <../patches/gcc/02-libstdc++-libsupc++-with-fno-exceptions.patch ; \
 	popd ;
 	[ -d stamps ] || mkdir stamps
 	touch stamps/patch-gcc;
