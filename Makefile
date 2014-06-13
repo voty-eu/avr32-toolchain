@@ -452,6 +452,7 @@ patch-gcc stamps/patch-gcc: stamps/extract-gcc stamps/extract-avr32patches
 	patch -N -p0 <$${f} ; \
 	done ; \
 	patch -N -p0 <../patches/gcc/00-libstdc++-shared_ptr-without-rtti-bug-42019.patch ; \
+	patch -N -p0 <../patches/gcc/01-gcc-floor_log2-error.patch ; \
 	popd ;
 	[ -d stamps ] || mkdir stamps
 	touch stamps/patch-gcc;
@@ -482,6 +483,7 @@ build-gcc stamps/build-gcc: stamps/install-binutils stamps/prep-gcc
 	CPPFLAGS_FOR_TARGET="--sysroot=\"$(PREFIX)/$(TARGET)\""		\
 	--with-bugurl=$(BUG_URL) \
 	--with-pkgversion=$(PKG_VERSION) && \
+	rm ../../gcc-4.4.7/gcc/cp/cfns.h && \
 	$(MAKE) -j$(PROCS)
 	[ -d stamps ] || mkdir stamps
 	touch stamps/build-gcc;
