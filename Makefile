@@ -459,9 +459,10 @@ patch-gcc stamps/patch-gcc: stamps/extract-gcc stamps/extract-avr32patches
 	[ -d stamps ] || mkdir stamps
 	touch stamps/patch-gcc;
 
-CFLAGS_FOR_TARGET="-ffunction-sections -fdata-sections			\
+CFLAGS_FOR_TARGET=-ffunction-sections -fdata-sections			\
 -fomit-frame-pointer -DPREFER_SIZE_OVER_SPEED -D__OPTIMIZE_SIZE__ -g	\
--Os -fno-unroll-loops"
+-Os -fno-unroll-loops
+CXXFLAGS_FOR_TARGET=$(CFLAGS_FOR_TARGET) -fno-exceptions
 
 .PHONY: build-gcc
 build-gcc stamps/build-gcc: stamps/install-binutils stamps/prep-gcc
@@ -472,15 +473,14 @@ build-gcc stamps/build-gcc: stamps/install-binutils stamps/prep-gcc
 	../../gcc-$(GCC_VERSION)/configure --prefix="$(PREFIX)"		\
 	--target=$(TARGET) --enable-languages="c" --with-gnu-ld		\
 	--with-gnu-as --with-newlib --disable-nls --disable-libssp	\
-	--with-dwarf2 --enable-sjlj-exceptions				\
-	--enable-version-specific-runtime-libs --disable-libstdcxx-pch	\
+	--with-dwarf2 --enable-version-specific-runtime-libs --disable-libstdcxx-pch	\
 	--disable-shared						\
 	--with-build-time-tools="$(PREFIX)/$(TARGET)/bin"		\
-	--enable-cxx-flags=$(CFLAGS_FOR_TARGET)				\
+	--enable-cxx-flags="$(CXXFLAGS_FOR_TARGET)"				\
 	--with-sysroot="$(PREFIX)/$(TARGET)"				\
 	--with-build-sysroot="$(PREFIX)/$(TARGET)"			\
 	--with-build-time-tools="$(PREFIX)/$(TARGET)/bin"		\
-	CFLAGS_FOR_TARGET=$(CFLAGS_FOR_TARGET)				\
+	CFLAGS_FOR_TARGET="$(CFLAGS_FOR_TARGET)"				\
 	LDFLAGS_FOR_TARGET="--sysroot=\"$(PREFIX)/$(TARGET)\""		\
 	CPPFLAGS_FOR_TARGET="--sysroot=\"$(PREFIX)/$(TARGET)\""		\
 	--with-bugurl=$(BUG_URL) \
@@ -515,15 +515,15 @@ build-final-gcc stamps/build-final-gcc: stamps/install-binutils stamps/install-g
 	../../gcc-$(GCC_VERSION)/configure --prefix=$(PREFIX) \
 	--target=$(TARGET) $(DEPENDENCIES) --enable-languages="c,c++" --with-gnu-ld \
 	--with-gnu-as --with-newlib --disable-nls --disable-libssp \
-	--with-dwarf2 --enable-sjlj-exceptions \
-	--enable-version-specific-runtime-libs --disable-libstdcxx-pch \
+	--with-dwarf2 --enable-version-specific-runtime-libs --disable-libstdcxx-pch \
 	--disable-shared --enable-__cxa_atexit \
 	--with-build-time-tools=$(PREFIX)/$(TARGET)/bin \
-	--enable-cxx-flags=$(CFLAGS_FOR_TARGET) \
+	--enable-cxx-flags="$(CXXFLAGS_FOR_TARGET)" \
 	--with-sysroot=$(PREFIX)/$(TARGET) \
 	--with-build-sysroot=$(PREFIX)/$(TARGET) \
 	--with-build-time-tools=$(PREFIX)/$(TARGET)/bin \
-	CFLAGS_FOR_TARGET=$(CFLAGS_FOR_TARGET) \
+	--disable-libstdcxx-verbose \
+	CFLAGS_FOR_TARGET="$(CFLAGS_FOR_TARGET)" \
 	LDFLAGS_FOR_TARGET="--sysroot=$(PREFIX)/$(TARGET)" \
 	CPPFLAGS_FOR_TARGET="--sysroot=$(PREFIX)/$(TARGET)" \
 	--with-bugurl=$(BUG_URL) \
