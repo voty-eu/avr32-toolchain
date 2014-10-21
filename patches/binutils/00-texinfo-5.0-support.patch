@@ -1,0 +1,764 @@
+diff -ru binutils-2.23.1.old/bfd/doc/bfd.texinfo binutils-2.23.1/bfd/doc/bfd.texinfo
+--- binutils-2.23.1.old/bfd/doc/bfd.texinfo	2014-10-20 14:14:11.425255080 +0200
++++ binutils-2.23.1/bfd/doc/bfd.texinfo	2014-10-20 14:17:59.581039409 +0200
+@@ -322,7 +322,7 @@
+ @printindex cp
+ 
+ @tex
+-% I think something like @colophon should be in texinfo.  In the
++% I think something like @@colophon should be in texinfo.  In the
+ % meantime:
+ \long\def\colophon{\hbox to0pt{}\vfill
+ \centerline{The body of this manual is set in}
+@@ -333,7 +333,7 @@
+ \centerline{{\sl\fontname\tensl\/}}
+ \centerline{are used for emphasis.}\vfill}
+ \page\colophon
+-% Blame: doc@cygnus.com, 28mar91.
++% Blame: doc@@cygnus.com, 28mar91.
+ @end tex
+ 
+ @bye
+diff -ru binutils-2.23.1.old/binutils/doc/binutils.texi binutils-2.23.1/binutils/doc/binutils.texi
+--- binutils-2.23.1.old/binutils/doc/binutils.texi	2014-10-20 14:14:11.693254827 +0200
++++ binutils-2.23.1/binutils/doc/binutils.texi	2014-10-20 14:17:59.581039409 +0200
+@@ -2902,7 +2902,7 @@
+ @c man end
+ @end ignore
+ 
+-@node c++filt, addr2line, elfedit, Top
++@node c++filt, addr2line, strip, Top
+ @chapter c++filt
+ 
+ @kindex c++filt
+@@ -4379,7 +4379,7 @@
+ 
+ @table @env
+ 
+-@itemx --input-mach=@var{machine}
++@item --input-mach=@var{machine}
+ Set the matching input ELF machine type to @var{machine}.  If
+ @option{--input-mach} isn't specified, it will match any ELF
+ machine types.
+@@ -4387,21 +4387,21 @@
+ The supported ELF machine types are, @var{L1OM}, @var{K1OM} and
+ @var{x86-64}.
+ 
+-@itemx --output-mach=@var{machine}
++@item --output-mach=@var{machine}
+ Change the ELF machine type in the ELF header to @var{machine}.  The
+ supported ELF machine types are the same as @option{--input-mach}.
+ 
+-@itemx --input-type=@var{type}
++@item --input-type=@var{type}
+ Set the matching input ELF file type to @var{type}.  If
+ @option{--input-type} isn't specified, it will match any ELF file types.
+ 
+ The supported ELF file types are, @var{rel}, @var{exec} and @var{dyn}.
+ 
+-@itemx --output-type=@var{type}
++@item --output-type=@var{type}
+ Change the ELF file type in the ELF header to @var{type}.  The
+ supported ELF types are the same as @option{--input-type}.
+ 
+-@itemx --input-osabi=@var{osabi}
++@item --input-osabi=@var{osabi}
+ Set the matching input ELF file OSABI to @var{osabi}.  If
+ @option{--input-osabi} isn't specified, it will match any ELF OSABIs.
+ 
+@@ -4411,7 +4411,7 @@
+ @var{FreeBSD}, @var{TRU64}, @var{Modesto}, @var{OpenBSD}, @var{OpenVMS},
+ @var{NSK}, @var{AROS} and @var{FenixOS}.
+ 
+-@itemx --output-osabi=@var{osabi}
++@item --output-osabi=@var{osabi}
+ Change the ELF OSABI in the ELF header to @var{osabi}.  The
+ supported ELF OSABI are the same as @option{--input-osabi}.
+ 
+Only in binutils-2.23.1/binutils/doc: binutils.texi.orig
+diff -ru binutils-2.23.1.old/gas/doc/as.texinfo binutils-2.23.1/gas/doc/as.texinfo
+--- binutils-2.23.1.old/gas/doc/as.texinfo	2014-10-20 14:14:11.169255322 +0200
++++ binutils-2.23.1/gas/doc/as.texinfo	2014-10-20 14:21:56.280815968 +0200
+@@ -611,7 +611,7 @@
+ compiler output).
+ 
+ @item -g
+-@itemx --gen-debug
++@item --gen-debug
+ Generate debugging information for each assembler source line using whichever
+ debug format is preferred by the target.  This currently means either STABS,
+ ECOFF or DWARF2.
+@@ -633,7 +633,7 @@
+ option is only supported by some targets, not all of them.
+ 
+ @item --size-check=error
+-@itemx --size-check=warning
++@item --size-check=warning
+ Issue an error or warning for invalid ELF .size directive.
+ 
+ @item --help
+@@ -657,7 +657,7 @@
+ @end ifset
+ 
+ @item -L
+-@itemx --keep-locals
++@item --keep-locals
+ Keep (in the symbol table) local symbols.  These symbols start with
+ system-specific local label prefixes, typically @samp{.L} for ELF systems
+ or @samp{L} for traditional a.out systems.
+@@ -707,14 +707,14 @@
+ Remove local absolute symbols from the outgoing symbol table.
+ 
+ @item -v
+-@itemx -version
++@item -version
+ Print the @command{as} version.
+ 
+ @item --version
+ Print the @command{as} version and exit.
+ 
+ @item -W
+-@itemx --no-warn
++@item --no-warn
+ Suppress warning messages.
+ 
+ @item --fatal-warnings
+@@ -999,8 +999,8 @@
+ Shorten references to undefined symbols, to one word instead of two.
+ 
+ @item -m68000 | -m68008 | -m68010 | -m68020 | -m68030
+-@itemx | -m68040 | -m68060 | -m68302 | -m68331 | -m68332
+-@itemx | -m68333 | -m68340 | -mcpu32 | -m5200
++@item | -m68040 | -m68060 | -m68302 | -m68331 | -m68332
++@item | -m68333 | -m68340 | -mcpu32 | -m5200
+ Specify what processor in the 68000 family is the target.  The default
+ is normally the 68020, but this can be changed at configuration time.
+ 
+@@ -1029,7 +1029,7 @@
+ default is @option{-mpic}.
+ 
+ @item -mall
+-@itemx -mall-extensions
++@item -mall-extensions
+ Enable all instruction set extensions.  This is the default.
+ 
+ @item -mno-extensions
+@@ -1126,7 +1126,7 @@
+ 
+ @table @gcctabopt
+ @item -Av6 | -Av7 | -Av8 | -Asparclet | -Asparclite
+-@itemx -Av8plus | -Av8plusa | -Av9 | -Av9a
++@item -Av8plus | -Av8plusa | -Av9 | -Av9a
+ Explicitly select a variant of the SPARC architecture.
+ 
+ @samp{-Av8plus} and @samp{-Av8plusa} select a 32 bit environment.
+@@ -1182,14 +1182,14 @@
+ 
+ @cindex MIPS ISA
+ @item -mips1
+-@itemx -mips2
+-@itemx -mips3
+-@itemx -mips4
+-@itemx -mips5
+-@itemx -mips32
+-@itemx -mips32r2
+-@itemx -mips64
+-@itemx -mips64r2
++@item -mips2
++@item -mips3
++@item -mips4
++@item -mips5
++@item -mips32
++@item -mips32r2
++@item -mips64
++@item -mips64r2
+ Generate code for a particular @sc{mips} Instruction Set Architecture level.
+ @samp{-mips1} is an alias for @samp{-march=r3000}, @samp{-mips2} is an
+ alias for @samp{-march=r6000}, @samp{-mips3} is an alias for
+@@ -1208,84 +1208,84 @@
+ Schedule and tune for a particular @sc{mips} cpu.
+ 
+ @item -mfix7000
+-@itemx -mno-fix7000
++@item -mno-fix7000
+ Cause nops to be inserted if the read of the destination register
+ of an mfhi or mflo instruction occurs in the following two instructions.
+ 
+ @item -mdebug
+-@itemx -no-mdebug
++@item -no-mdebug
+ Cause stabs-style debugging output to go into an ECOFF-style .mdebug
+ section instead of the standard ELF .stabs sections.
+ 
+ @item -mpdr
+-@itemx -mno-pdr
++@item -mno-pdr
+ Control generation of @code{.pdr} sections.
+ 
+ @item -mgp32
+-@itemx -mfp32
++@item -mfp32
+ The register sizes are normally inferred from the ISA and ABI, but these
+ flags force a certain group of registers to be treated as 32 bits wide at
+ all times.  @samp{-mgp32} controls the size of general-purpose registers
+ and @samp{-mfp32} controls the size of floating-point registers.
+ 
+ @item -mips16
+-@itemx -no-mips16
++@item -no-mips16
+ Generate code for the MIPS 16 processor.  This is equivalent to putting
+ @code{.set mips16} at the start of the assembly file.  @samp{-no-mips16}
+ turns off this option.
+ 
+ @item -mmicromips
+-@itemx -mno-micromips
++@item -mno-micromips
+ Generate code for the microMIPS processor.  This is equivalent to putting
+ @code{.set micromips} at the start of the assembly file.  @samp{-mno-micromips}
+ turns off this option.  This is equivalent to putting @code{.set nomicromips}
+ at the start of the assembly file.
+ 
+ @item -msmartmips
+-@itemx -mno-smartmips
++@item -mno-smartmips
+ Enables the SmartMIPS extension to the MIPS32 instruction set. This is
+ equivalent to putting @code{.set smartmips} at the start of the assembly file.
+ @samp{-mno-smartmips} turns off this option.
+ 
+ @item -mips3d
+-@itemx -no-mips3d
++@item -no-mips3d
+ Generate code for the MIPS-3D Application Specific Extension.
+ This tells the assembler to accept MIPS-3D instructions.
+ @samp{-no-mips3d} turns off this option.
+ 
+ @item -mdmx
+-@itemx -no-mdmx
++@item -no-mdmx
+ Generate code for the MDMX Application Specific Extension.
+ This tells the assembler to accept MDMX instructions.
+ @samp{-no-mdmx} turns off this option.
+ 
+ @item -mdsp
+-@itemx -mno-dsp
++@item -mno-dsp
+ Generate code for the DSP Release 1 Application Specific Extension.
+ This tells the assembler to accept DSP Release 1 instructions.
+ @samp{-mno-dsp} turns off this option.
+ 
+ @item -mdspr2
+-@itemx -mno-dspr2
++@item -mno-dspr2
+ Generate code for the DSP Release 2 Application Specific Extension.
+ This option implies -mdsp.
+ This tells the assembler to accept DSP Release 2 instructions.
+ @samp{-mno-dspr2} turns off this option.
+ 
+ @item -mmt
+-@itemx -mno-mt
++@item -mno-mt
+ Generate code for the MT Application Specific Extension.
+ This tells the assembler to accept MT instructions.
+ @samp{-mno-mt} turns off this option.
+ 
+ @item -mmcu
+-@itemx -mno-mcu
++@item -mno-mcu
+ Generate code for the MCU Application Specific Extension.
+ This tells the assembler to accept MCU instructions.
+ @samp{-mno-mcu} turns off this option.
+ 
+ @item --construct-floats
+-@itemx --no-construct-floats
++@item --no-construct-floats
+ The @samp{--no-construct-floats} option disables the construction of
+ double width floating point constants by loading the two halves of the
+ value into the two single width floating point registers that make up
+@@ -1322,9 +1322,9 @@
+ the native tools.
+ 
+ @item --trap
+-@itemx --no-trap
+-@itemx --break
+-@itemx --no-break
++@item --no-trap
++@item --break
++@item --no-break
+ Control how to deal with multiplication overflow and division by zero.
+ @samp{--trap} or @samp{--no-break} (which are synonyms) take a trap exception
+ (and only work for Instruction Set Architecture level 2 and higher);
+@@ -1343,12 +1343,12 @@
+ 
+ @table @gcctabopt
+ @item -jsri2bsr
+-@itemx -nojsri2bsr
++@item -nojsri2bsr
+ Enable or disable the JSRI to BSR transformation.  By default this is enabled.
+ The command line option @samp{-nojsri2bsr} can be used to disable it.
+ 
+ @item -sifilter
+-@itemx -nosifilter
++@item -nosifilter
+ Enable or disable the silicon filter behaviour.  By default this is disabled.
+ The default can be overridden by the @samp{-sifilter} command line option.
+ 
+@@ -1403,7 +1403,7 @@
+ 
+ @table @gcctabopt
+ @item -m31
+-@itemx -m64
++@item -m64
+ Select the word size, either 31/32 bits or 64 bits.
+ @item -mesa
+ @item -mzarch
+@@ -1413,7 +1413,7 @@
+ Specify which s390 processor variant is the target, @samp{g6}, @samp{g6},
+ @samp{z900}, @samp{z990}, @samp{z9-109}, @samp{z9-ec}, or @samp{z10}.
+ @item -mregnames
+-@itemx -mno-regnames
++@item -mno-regnames
+ Allow or disallow symbolic names for registers.
+ @item -mwarn-areg-zero
+ Warn whenever the operand for a base or index register has been specified
+@@ -1490,22 +1490,22 @@
+ @item -r800
+ Assemble for R800 processor.
+ @item  -ignore-undocumented-instructions
+-@itemx -Wnud
++@item -Wnud
+ Assemble undocumented Z80 instructions that also work on R800 without warning.
+ @item  -ignore-unportable-instructions
+-@itemx -Wnup
++@item -Wnup
+ Assemble all undocumented Z80 instructions without warning.
+ @item  -warn-undocumented-instructions
+-@itemx -Wud
++@item -Wud
+ Issue a warning for undocumented Z80 instructions that also work on R800.
+ @item  -warn-unportable-instructions
+-@itemx -Wup
++@item -Wup
+ Issue a warning for undocumented Z80 instructions that do not work on R800.
+ @item  -forbid-undocumented-instructions
+-@itemx -Fud
++@item -Fud
+ Treat all undocumented instructions as errors.
+ @item  -forbid-unportable-instructions
+-@itemx -Fup
++@item -Fup
+ Treat undocumented Z80 instructions that do not work on R800 as errors.
+ @end table
+ @end ifset
+@@ -1568,7 +1568,7 @@
+ @end ifset
+ @end ifclear
+ 
+-@c I think this is premature---doc@cygnus.com, 17jan1991
++@c I think this is premature---doc@@cygnus.com, 17jan1991
+ @ignore
+ Throughout this manual, we assume that you are running @dfn{GNU},
+ the portable operating system from the @dfn{Free Software
+@@ -1700,7 +1700,7 @@
+ doesn't change the meaning of the source.
+ 
+ @c I added "con" prefix to "catenation" just to prove I can overcome my
+-@c APL training...   doc@cygnus.com
++@c APL training...   doc@@cygnus.com
+ The source program is a concatenation of the text in all the files, in the
+ order specified.
+ 
+@@ -2540,7 +2540,7 @@
+ @cindex instructions and directives
+ @cindex directives and instructions
+ @c "key symbol" is not used elsewhere in the document; seems pedantic to
+-@c @defn{} it in that case, as was done previously...  doc@cygnus.com,
++@c @defn{} it in that case, as was done previously...  doc@@cygnus.com,
+ @c 13feb91.
+ A statement begins with zero or more labels, optionally followed by a
+ key symbol which determines what kind of statement it is.  The key
+@@ -3097,8 +3097,8 @@
+ @ifset aout-bout
+ @cindex text section
+ @cindex data section
+-@itemx text section
+-@itemx data section
++@item text section
++@item data section
+ @end ifset
+ These sections hold your program.  @command{@value{AS}} and @code{@value{LD}} treat them as
+ separate but equal sections.  Anything you can say of one section is
+@@ -3935,7 +3935,7 @@
+ @item  ==
+ @dfn{Is Equal To}
+ @item <>
+-@itemx !=
++@item !=
+ @dfn{Is Not Equal To}
+ @item <
+ @dfn{Is Less Than}
+@@ -5028,7 +5028,7 @@
+ @cindex @code{ifndef} directive
+ @cindex @code{ifnotdef} directive
+ @item .ifndef @var{symbol}
+-@itemx .ifnotdef @var{symbol}
++@item .ifnotdef @var{symbol}
+ Assembles the following section of code if the specified @var{symbol}
+ has not been defined.  Both spelling variants are equivalent.  Note a symbol
+ which has been referenced but not yet defined is considered to be undefined.
+@@ -5423,7 +5423,7 @@
+ 
+ @ftable @code
+ @item .macro @var{macname}
+-@itemx .macro @var{macname} @var{macargs} @dots{}
++@item .macro @var{macname} @var{macargs} @dots{}
+ @cindex @code{macro} directive
+ Begin the definition of a macro called @var{macname}.  If your macro
+ definition requires arguments, specify their names after the macro name,
+@@ -5442,7 +5442,7 @@
+ arguments.
+ 
+ @item  .macro plus1 p, p1
+-@itemx .macro plus1 p p1
++@item .macro plus1 p p1
+ Either statement begins the definition of a macro called @code{plus1},
+ which takes two arguments; within the macro definition, write
+ @samp{\p} or @samp{\p1} to evaluate the arguments.
+@@ -5635,7 +5635,7 @@
+ 
+ @c double negative used below "not undefined" because this is a specific
+ @c reference to "undefined" (as SEG_UNKNOWN is called in this manual)
+-@c section. doc@cygnus.com 18feb91
++@c section. doc@@cygnus.com 18feb91
+ Because @command{@value{AS}} tries to assemble programs in one pass, @var{new-lc}
+ may not be undefined.  If you really detest this restriction we eagerly await
+ a chance to share your improved assembler.
+@@ -6573,28 +6573,28 @@
+ 
+ @table @gcctabopt
+ @item STT_FUNC
+-@itemx function
++@item function
+ Mark the symbol as being a function name.
+ 
+ @item STT_GNU_IFUNC
+-@itemx gnu_indirect_function
++@item gnu_indirect_function
+ Mark the symbol as an indirect function when evaluated during reloc
+ processing.  (This is only supported on assemblers targeting GNU systems).
+ 
+ @item STT_OBJECT
+-@itemx object
++@item object
+ Mark the symbol as being a data object.
+ 
+ @item STT_TLS
+-@itemx tls_object
++@item tls_object
+ Mark the symbol as being a thead-local data object.
+ 
+ @item STT_COMMON
+-@itemx common
++@item common
+ Mark the symbol as being a common data object.
+ 
+ @item STT_NOTYPE
+-@itemx notype
++@item notype
+ Does not mark the symbol in any way.  It is supported just for completeness.
+ 
+ @item gnu_unique_object
+diff -ru binutils-2.23.1.old/gas/doc/c-arc.texi binutils-2.23.1/gas/doc/c-arc.texi
+--- binutils-2.23.1.old/gas/doc/c-arc.texi	2014-10-20 14:14:11.169255322 +0200
++++ binutils-2.23.1/gas/doc/c-arc.texi	2014-10-20 14:17:59.581039409 +0200
+@@ -220,7 +220,7 @@
+ encodings for use of these instructions according to the specification
+ by the user.  The parameters are:
+ 
+-@table @bullet
++@table @code
+ @item @var{name}
+ Name of the extension instruction 
+ 
+diff -ru binutils-2.23.1.old/gas/doc/c-arm.texi binutils-2.23.1/gas/doc/c-arm.texi
+--- binutils-2.23.1.old/gas/doc/c-arm.texi	2014-10-20 14:14:11.169255322 +0200
++++ binutils-2.23.1/gas/doc/c-arm.texi	2014-10-20 14:17:59.581039409 +0200
+@@ -1,5 +1,4 @@
+-@c Copyright 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
+-@c 2006, 2007, 2008, 2009, 2010, 2011  Free Software Foundation, Inc.
++@c Copyright 1996-2013 Free Software Foundation, Inc.
+ @c This is part of the GAS manual.
+ @c For copying conditions, see the file as.texinfo.
+ 
+@@ -388,29 +387,29 @@
+ @code{unified} syntax, which can be selected via the @code{.syntax}
+ directive, and has the following main features:
+ 
+-@table @bullet
+-@item
++@table @code
++@item 1
+ Immediate operands do not require a @code{#} prefix.
+ 
+-@item
++@item 2
+ The @code{IT} instruction may appear, and if it does it is validated
+ against subsequent conditional affixes.  In ARM mode it does not
+ generate machine code, in THUMB mode it does.
+ 
+-@item
++@item 3
+ For ARM instructions the conditional affixes always appear at the end
+ of the instruction.  For THUMB instructions conditional affixes can be
+ used, but only inside the scope of an @code{IT} instruction.
+ 
+-@item
++@item 4
+ All of the instructions new to the V6T2 architecture (and later) are
+ available.  (Only a few such instructions can be written in the
+ @code{divided} syntax).
+ 
+-@item
++@item 5
+ The @code{.N} and @code{.W} suffixes are recognized and honored.
+ 
+-@item
++@item 6
+ All instructions set the flags if and only if they have an @code{s}
+ affix.
+ @end table
+@@ -449,28 +448,6 @@
+ @cindex register names, ARM
+ *TODO* Explain about ARM register naming, and the predefined names.
+ 
+-@node ARM-Neon-Alignment
+-@subsection NEON Alignment Specifiers
+-
+-@cindex alignment for NEON instructions
+-Some NEON load/store instructions allow an optional address
+-alignment qualifier.
+-The ARM documentation specifies that this is indicated by
+-@samp{@@ @var{align}}. However GAS already interprets
+-the @samp{@@} character as a "line comment" start,
+-so @samp{: @var{align}} is used instead.  For example:
+-
+-@smallexample
+-        vld1.8 @{q0@}, [r0, :128]
+-@end smallexample
+-
+-@node ARM Floating Point
+-@section Floating Point
+-
+-@cindex floating point, ARM (@sc{ieee})
+-@cindex ARM floating point (@sc{ieee})
+-The ARM family uses @sc{ieee} floating-point numbers.
+-
+ @node ARM-Relocations
+ @subsection ARM relocation generation
+ 
+@@ -517,6 +494,28 @@
+         MOVT r0, #:upper16:foo
+ @end smallexample
+ 
++@node ARM-Neon-Alignment
++@subsection NEON Alignment Specifiers
++
++@cindex alignment for NEON instructions
++Some NEON load/store instructions allow an optional address
++alignment qualifier.
++The ARM documentation specifies that this is indicated by
++@samp{@@ @var{align}}. However GAS already interprets
++the @samp{@@} character as a "line comment" start,
++so @samp{: @var{align}} is used instead.  For example:
++
++@smallexample
++        vld1.8 @{q0@}, [r0, :128]
++@end smallexample
++
++@node ARM Floating Point
++@section Floating Point
++
++@cindex floating point, ARM (@sc{ieee})
++@cindex ARM floating point (@sc{ieee})
++The ARM family uses @sc{ieee} floating-point numbers.
++
+ @node ARM Directives
+ @section ARM Machine Directives
+ 
+diff -ru binutils-2.23.1.old/gas/doc/c-cr16.texi binutils-2.23.1/gas/doc/c-cr16.texi
+--- binutils-2.23.1.old/gas/doc/c-cr16.texi	2014-10-20 14:14:11.169255322 +0200
++++ binutils-2.23.1/gas/doc/c-cr16.texi	2014-10-20 14:17:59.581039409 +0200
+@@ -1,4 +1,4 @@
+-@c Copyright 2007, 2008, 2011 Free Software Foundation, Inc.
++@c Copyright 2007-2013 Free Software Foundation, Inc.
+ @c This is part of the GAS manual.
+ @c For copying conditions, see the file as.texinfo.
+ 
+@@ -44,26 +44,33 @@
+ CR16 target operand qualifiers and its size (in bits):
+ 
+ @table @samp
+-@item Immediate Operand
+-- s ---- 4 bits
+-@item 
+-- m ---- 16 bits, for movb and movw instructions.
+-@item 
+-- m ---- 20 bits, movd instructions.
+-@item 
+-- l ---- 32 bits
+-
+-@item Absolute Operand
+-- s ---- Illegal specifier for this operand.
+-@item  
+-- m ---- 20 bits, movd instructions.
+-
+-@item Displacement Operand
+-- s ---- 8 bits
+-@item
+-- m ---- 16 bits
+-@item 
+-- l ---- 24 bits
++@item Immediate Operand: s
++4 bits.
++
++@item Immediate Operand: m
++16 bits, for movb and movw instructions.
++
++@item Immediate Operand: m
++20 bits, movd instructions.
++
++@item Immediate Operand: l
++32 bits.
++
++@item Absolute Operand: s
++Illegal specifier for this operand.
++
++@item Absolute Operand: m
++20 bits, movd instructions.
++
++@item Displacement Operand: s
++8 bits.
++
++@item Displacement Operand: m
++16 bits.
++
++@item Displacement Operand: l
++24 bits.
++
+ @end table
+ 
+ For example:
+diff -ru binutils-2.23.1.old/gas/doc/c-mips.texi binutils-2.23.1/gas/doc/c-mips.texi
+--- binutils-2.23.1.old/gas/doc/c-mips.texi	2014-10-20 14:14:11.169255322 +0200
++++ binutils-2.23.1/gas/doc/c-mips.texi	2014-10-20 14:17:59.585039405 +0200
+@@ -234,7 +234,7 @@
+ instructions around accesses to the @samp{HI} and @samp{LO} registers.
+ @samp{-no-m4650} turns off this option.
+ 
+-@itemx -m3900
++@item -m3900
+ @itemx -no-m3900
+ @itemx -m4100
+ @itemx -no-m4100
+diff -ru binutils-2.23.1.old/gas/doc/c-score.texi binutils-2.23.1/gas/doc/c-score.texi
+--- binutils-2.23.1.old/gas/doc/c-score.texi	2014-10-20 14:14:11.173255318 +0200
++++ binutils-2.23.1/gas/doc/c-score.texi	2014-10-20 14:17:59.585039405 +0200
+@@ -37,7 +37,7 @@
+ @item -EB
+ Assemble code for a big-endian cpu
+ 
+-@itemx -EL
++@item -EL
+ Assemble code for a little-endian cpu
+ 
+ @item -FIXDD 
+@@ -49,13 +49,13 @@
+ @item -SCORE5
+ Assemble code for target is SCORE5
+ 
+-@itemx -SCORE5U
++@item -SCORE5U
+ Assemble code for target is SCORE5U
+ 
+-@itemx -SCORE7
++@item -SCORE7
+ Assemble code for target is SCORE7, this is default setting
+ 
+-@itemx -SCORE3
++@item -SCORE3
+ Assemble code for target is SCORE3
+ 
+ @item -march=score7
+diff -ru binutils-2.23.1.old/gas/doc/c-tic54x.texi binutils-2.23.1/gas/doc/c-tic54x.texi
+--- binutils-2.23.1.old/gas/doc/c-tic54x.texi	2014-10-20 14:14:11.169255322 +0200
++++ binutils-2.23.1/gas/doc/c-tic54x.texi	2014-10-20 14:17:59.585039405 +0200
+@@ -1,4 +1,4 @@
+-@c Copyright 2000, 2002, 2003, 2006, 2011 Free Software Foundation, Inc.
++@c Copyright 2000-2013 Free Software Foundation, Inc.
+ @c This is part of the GAS manual.
+ @c For copying conditions, see the file as.texinfo.
+ @c TI TMS320C54X description by Timothy Wall, twall@cygnus.com
+@@ -109,7 +109,7 @@
+ is replaced with x.  At this point, x has already been encountered
+ and the substitution stops.
+ 
+-@smallexample @code
++@smallexample
+  .asg   "x",SYM1 
+  .asg   "SYM1",SYM2
+  .asg   "SYM2",x
+@@ -126,14 +126,14 @@
+ ambiguous by placing colons on either side of the subsym.  The following
+ code: 
+ 
+-@smallexample @code
++@smallexample
+  .eval  "10",x
+ LAB:X:  add     #x, a
+ @end smallexample
+ 
+ When assembled becomes:
+ 
+-@smallexample @code
++@smallexample
+ LAB10  add     #10, a
+ @end smallexample
+ 
+@@ -309,7 +309,7 @@
+ of a label or address.  For example, if an address @code{_label} resides
+ in extended program memory, the value of @code{_label} may be loaded as
+ follows:
+-@smallexample @code
++@smallexample
+  ldx     #_label,16,a    ; loads extended bits of _label
+  or      #_label,a       ; loads lower 16 bits of _label
+  bacc    a               ; full address is in accumulator A
+@@ -345,7 +345,7 @@
+ performed on @var{string} before assignment.
+ 
+ @cindex @code{eval} directive, TIC54X
+-@itemx .eval @var{string}, @var{name}
++@item .eval @var{string}, @var{name}
+ Evaluate the contents of string @var{string} and assign the result as a
+ string to the subsym @var{name}.  String replacement is performed on
+ @var{string} before assignment. 
+diff -ru binutils-2.23.1.old/ld/ld.texinfo binutils-2.23.1/ld/ld.texinfo
+--- binutils-2.23.1.old/ld/ld.texinfo	2014-10-20 14:14:11.625254891 +0200
++++ binutils-2.23.1/ld/ld.texinfo	2014-10-20 14:17:59.585039405 +0200
+@@ -7856,7 +7856,7 @@
+ @printindex cp
+ 
+ @tex
+-% I think something like @colophon should be in texinfo.  In the
++% I think something like @@colophon should be in texinfo.  In the
+ % meantime:
+ \long\def\colophon{\hbox to0pt{}\vfill
+ \centerline{The body of this manual is set in}
+@@ -7867,7 +7867,7 @@
+ \centerline{{\sl\fontname\tensl\/}}
+ \centerline{are used for emphasis.}\vfill}
+ \page\colophon
+-% Blame: doc@cygnus.com, 28mar91.
++% Blame: doc@@cygnus.com, 28mar91.
+ @end tex
+ 
+ @bye
