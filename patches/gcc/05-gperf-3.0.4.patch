@@ -1,0 +1,24 @@
+diff -ru gcc-4.4.7.old/gcc/cp/cfns.gperf gcc-4.4.7/gcc/cp/cfns.gperf
+--- gcc-4.4.7.old/gcc/cp/cfns.gperf	2014-10-21 08:18:39.996745617 +0200
++++ gcc-4.4.7/gcc/cp/cfns.gperf	2014-10-21 08:21:42.280503502 +0200
+@@ -6,7 +6,7 @@
+ #ifdef __GNUC__
+ __inline
+ #endif
+-const char * libc_name_p (const char *, unsigned int);
++__attribute__ ((gnu_inline)) const char * libc_name_p (const char *, unsigned int);
+ %}
+ %%
+ # The standard C library functions, for feeding to gperf; the result is used
+diff -ru gcc-4.4.7.old/gcc/cp/cfns.h gcc-4.4.7/gcc/cp/cfns.h
+--- gcc-4.4.7.old/gcc/cp/cfns.h	2014-10-21 08:18:39.996745617 +0200
++++ gcc-4.4.7/gcc/cp/cfns.h	2014-10-21 08:21:17.068536854 +0200
+@@ -37,7 +37,7 @@
+ #ifdef __GNUC__
+ __inline
+ #endif
+-const char * libc_name_p (const char *, unsigned int);
++__attribute__ ((gnu_inline)) const char * libc_name_p (const char *, unsigned int); 
+ /* maximum key range = 391, duplicates = 0 */
+ 
+ #ifdef __GNUC__
