@@ -64,11 +64,11 @@ PKG_VERSION = "AVR 32 bit GNU Toolchain-$(AVR_PATCH_REV)-$(GIT_REV)"
 #### PRIMARY TOOLCHAIN URLS #####
 
 GCC_ARCHIVE = gcc-$(GCC_VERSION).tar.bz2
-GCC_URL = http://mirror.anl.gov/pub/gnu/gcc/gcc-$(GCC_VERSION)/$(GCC_ARCHIVE)
+GCC_URL = http://ftp.gnu.org/gnu/gcc/gcc-$(GCC_VERSION)/$(GCC_ARCHIVE)
 GCC_MD5 = 295709feb4441b04e87dea3f1bab4281
 
 BINUTILS_ARCHIVE = binutils-$(BINUTILS_VERSION).tar.bz2
-BINUTILS_URL = http://mirror.anl.gov/pub/gnu/binutils/$(BINUTILS_ARCHIVE)
+BINUTILS_URL = https://ftp.gnu.org/gnu/binutils/$(BINUTILS_ARCHIVE)
 BINUTILS_MD5 = 33adb18c3048d057ac58d07a3f1adb38
 
 NEWLIB_ARCHIVE = newlib-$(NEWLIB_VERSION).tar.gz
@@ -94,11 +94,11 @@ AUTOMAKE_VERSION = 1.11
 MPC_VERSION = 0.8.1
 
 AUTOCONF_ARCHIVE = autoconf-$(AUTOCONF_VERSION).tar.bz2
-AUTOCONF_URL = http://mirror.anl.gov/pub/gnu/autoconf/$(AUTOCONF_ARCHIVE)
+AUTOCONF_URL = http://ftp.gnu.org/gnu/autoconf/$(AUTOCONF_ARCHIVE)
 AUTOCONF_MD5 = ef400d672005e0be21e0d20648169074
 
 AUTOMAKE_ARCHIVE = automake-$(AUTOMAKE_VERSION).tar.bz2
-AUTOMAKE_URL = http://mirror.anl.gov/pub/gnu/automake/$(AUTOMAKE_ARCHIVE)
+AUTOMAKE_URL = http://ftp.gnu.org/gnu/automake/$(AUTOMAKE_ARCHIVE)
 AUTOMAKE_MD5 = 4db4efe027e26b33930a7e151de19d0f
 
 
