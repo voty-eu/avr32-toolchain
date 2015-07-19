@@ -380,7 +380,7 @@ build-binutils stamps/build-binutils: stamps/regen-binutils stamps/install-supp-
 	--disable-shared --disable-werror				\
 	--with-sysroot="$(PREFIX)/$(TARGET)" --with-bugurl=$(BUG_URL) &&	\
 	$(MAKE) all-bfd TARGET-bfd=headers; \
-	rm bfd/Makefile; \
+	rm -f bfd/Makefile; \
 	make configure-bfd; \
 	$(MAKE)
 	[ -d stamps ] || mkdir stamps ;
@@ -488,7 +488,7 @@ build-gcc stamps/build-gcc: stamps/install-binutils stamps/prep-gcc
 	CPPFLAGS_FOR_TARGET="--sysroot=\"$(PREFIX)/$(TARGET)\""		\
 	--with-bugurl=$(BUG_URL) \
 	--with-pkgversion=$(PKG_VERSION) && \
-	rm ../../gcc-4.4.7/gcc/cp/cfns.h && \
+	rm -f ../../gcc-4.4.7/gcc/cp/cfns.h && \
 	$(MAKE) -j$(PROCS)
 	[ -d stamps ] || mkdir stamps
 	touch stamps/build-gcc;
