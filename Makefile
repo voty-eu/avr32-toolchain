@@ -76,7 +76,7 @@ NEWLIB_URL = ftp://sources.redhat.com/pub/newlib/$(NEWLIB_ARCHIVE)
 NEWLIB_MD5 = bf8f1f9e3ca83d732c00a79a6ef29bc4
 
 AVR32PATCHES_ARCHIVE = avr32-patches.tar.gz
-AVR32PATCHES_URL = http://distribute.atmel.no/tools/opensource/Atmel-AVR-Toolchain-$(AVR32_PATCH_REV)/avr32/$(AVR32PATCHES_ARCHIVE)
+AVR32PATCHES_URL = http://distribute.atmel.no/tools/opensource/Atmel-AVR32-GNU-Toolchain/$(AVR32_PATCH_REV)/$(AVR32PATCHES_ARCHIVE)
 AVR32PATCHES_MD5 = 99b2f4497d264c9200538bb1229fdef9
 
 AVR32HEADERS_ARCHIVE = atmel-headers-$(ATMEL_HEADER_REV).zip
