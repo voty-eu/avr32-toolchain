@@ -191,8 +191,15 @@ extract-automake stamps/extract-automake: downloads/$(AUTOMAKE_ARCHIVE)
 	[ -d stamps ] || mkdir stamps ;
 	touch stamps/extract-automake;
 
+.PHONY: patch-automake
+patch-automake stamps/patch-automake: stamps/extract-automake
+	pushd automake-$(AUTOMAKE_VERSION) ; \
+	patch -N -p1 < ../patches/automake/010-automake-port-to-Perl-5.22-and-later.patch
+	[ -d stamps ] || mkdir stamps
+	touch stamps/patch-automake;
+
 .PHONY: build-automake
-build-automake stamps/build-automake: stamps/extract-automake stamps/install-autoconf
+build-automake stamps/build-automake: stamps/patch-automake stamps/install-autoconf
 	mkdir -p build/automake && cd build/automake && \
 	../../automake-$(AUTOMAKE_VERSION)/configure --prefix="$(SUPP_PREFIX)" && \
 	$(MAKE) -j$(PROCS)
