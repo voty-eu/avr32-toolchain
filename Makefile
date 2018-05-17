@@ -56,6 +56,7 @@ SUPP_PREFIX = $(CURDIR)/supp
 PATH       := ${PREFIX}/bin:${SUPP_PREFIX}/bin:${PATH}
 AUTOCONF    = $(SUPP_PREFIX)/bin/autoconf
 AUTOMAKE    = $(SUPP_PREFIX)/bin/automake
+GPERF       = $(SUPP_PREFIX)/bin/gperf
 
 BUG_URL = https://github.com/jsnyder/avr32-toolchain
 PKG_VERSION = "AVR 32 bit GNU Toolchain-$(AVR_PATCH_REV)-$(GIT_REV)"
@@ -92,6 +93,7 @@ DFU_MD5 = 707dcd0f957a74e92456ea6919faa772
 AUTOCONF_VERSION = 2.64
 AUTOMAKE_VERSION = 1.11
 MPC_VERSION = 0.8.1
+GPERF_VERSION = 3.0.4
 
 AUTOCONF_ARCHIVE = autoconf-$(AUTOCONF_VERSION).tar.bz2
 AUTOCONF_URL = http://ftp.gnu.org/gnu/autoconf/$(AUTOCONF_ARCHIVE)
@@ -100,6 +102,10 @@ AUTOCONF_MD5 = ef400d672005e0be21e0d20648169074
 AUTOMAKE_ARCHIVE = automake-$(AUTOMAKE_VERSION).tar.bz2
 AUTOMAKE_URL = http://ftp.gnu.org/gnu/automake/$(AUTOMAKE_ARCHIVE)
 AUTOMAKE_MD5 = 4db4efe027e26b33930a7e151de19d0f
+
+GPERF_ARCHIVE = gperf-$(GPERF_VERSION).tar.gz
+GPERF_URL = https://ftp.gnu.org/gnu/gperf/$(GPERF_ARCHIVE)
+GPERF_MD5 = c1f1db32fb6598d6a93e6e88796a8632
 
 
 
@@ -137,7 +143,7 @@ install-note: install-tools
 
 
 .PHONY: install-supp-tools
-install-supp-tools stamps/install-supp-tools: install-autoconf install-automake
+install-supp-tools stamps/install-supp-tools: install-autoconf install-automake install-gperf
 	[ -d stamps ] || mkdir stamps ;
 	touch stamps/install-supp-tools;
 
@@ -213,6 +219,38 @@ install-automake stamps/install-automake:  stamps/build-automake
 	[ -d stamps ] || mkdir stamps
 	touch stamps/install-automake;
 
+
+
+############ SUPP: GPERF ############
+
+.PHONY: download-gperf
+downloads/$(GPERF_ARCHIVE) download-gperf:
+	[ -d downloads ] || mkdir downloads ;
+	cd downloads && curl -LO $(GPERF_URL)
+
+.PHONY: extract-gperf
+extract-gperf stamps/extract-gperf: downloads/$(GPERF_ARCHIVE)
+	@(t1=`openssl md5 $< | cut -f 2 -d " " -` && \
+	[ "$$t1" = "$(GPERF_MD5)" ] || \
+	( echo "Bad Checksum! Please remove the following file and retry: $<" && false ))
+	tar -zxf $< ;
+	[ -d stamps ] || mkdir stamps ;
+	touch stamps/extract-gperf;
+
+.PHONY: build-gperf
+build-gperf stamps/build-gperf: stamps/extract-gperf
+	mkdir -p build/gperf && cd build/gperf && \
+	../../gperf-$(GPERF_VERSION)/configure --prefix="$(SUPP_PREFIX)" && \
+	$(MAKE) -j$(PROCS)
+	[ -d stamps ] || mkdir stamps
+	touch stamps/build-gperf;
+
+.PHONY: install-gperf
+install-gperf stamps/install-gperf:  stamps/build-gperf
+	cd build/gperf && \
+	$(MAKE) install
+	[ -d stamps ] || mkdir stamps
+	touch stamps/install-gperf;
 
 
 ############# AVR32 PATCHES ############
@@ -495,7 +533,7 @@ build-gcc stamps/build-gcc: stamps/install-binutils stamps/prep-gcc
 	CPPFLAGS_FOR_TARGET="--sysroot=\"$(PREFIX)/$(TARGET)\""		\
 	--with-bugurl=$(BUG_URL) \
 	--with-pkgversion=$(PKG_VERSION) && \
-	rm -f ../../gcc-4.4.7/gcc/cp/cfns.h && \
+	rm -f ../../gcc-$(GCC_VERSION)/gcc/cp/cfns.h && \
 	$(MAKE) -j$(PROCS)
 	[ -d stamps ] || mkdir stamps
 	touch stamps/build-gcc;
