@@ -1,6 +1,6 @@
 diff -ru gcc-4.4.7.old/gcc/doc/cppopts.texi gcc-4.4.7/gcc/doc/cppopts.texi
---- gcc-4.4.7.old/gcc/doc/cppopts.texi	2014-10-21 06:00:40.320002379 +0200
-+++ gcc-4.4.7/gcc/doc/cppopts.texi	2014-10-21 06:12:40.314985934 +0200
+--- gcc-4.4.7.old/gcc/doc/cppopts.texi	2018-05-17 10:22:49.888638800 +0200
++++ gcc-4.4.7/gcc/doc/cppopts.texi	2018-05-17 10:23:00.020743010 +0200
 @@ -758,7 +758,7 @@
  Enable special code to work around file systems which only permit very
  short file names, such as MS-DOS@.
@@ -11,8 +11,8 @@ diff -ru gcc-4.4.7.old/gcc/doc/cppopts.texi gcc-4.4.7/gcc/doc/cppopts.texi
  @opindex help
  @opindex target-help
 diff -ru gcc-4.4.7.old/gcc/doc/c-tree.texi gcc-4.4.7/gcc/doc/c-tree.texi
---- gcc-4.4.7.old/gcc/doc/c-tree.texi	2014-10-21 06:00:40.200002549 +0200
-+++ gcc-4.4.7/gcc/doc/c-tree.texi	2014-10-21 06:23:13.950094244 +0200
+--- gcc-4.4.7.old/gcc/doc/c-tree.texi	2018-05-17 10:22:49.888638800 +0200
++++ gcc-4.4.7/gcc/doc/c-tree.texi	2018-05-17 10:23:00.020743010 +0200
 @@ -2338,13 +2338,13 @@
  not matter.  The type of the operands and that of the result are
  always of @code{BOOLEAN_TYPE} or @code{INTEGER_TYPE}.
@@ -29,9 +29,28 @@ diff -ru gcc-4.4.7.old/gcc/doc/c-tree.texi gcc-4.4.7/gcc/doc/c-tree.texi
  @itemx MINUS_EXPR
  @itemx MULT_EXPR
  These nodes represent various binary arithmetic operations.
+diff -ru gcc-4.4.7.old/gcc/doc/gcc.texi gcc-4.4.7/gcc/doc/gcc.texi
+--- gcc-4.4.7.old/gcc/doc/gcc.texi	2018-05-17 10:22:49.896638881 +0200
++++ gcc-4.4.7/gcc/doc/gcc.texi	2018-05-17 10:26:36.455050542 +0200
+@@ -86,9 +86,13 @@
+ @item GNU Press
+ @tab Website: www.gnupress.org
+ @item a division of the
+-@tab General: @tex press@@gnu.org @end tex
++@tab General:
++@tex press@@gnu.org
++@end tex
+ @item Free Software Foundation
+-@tab Orders:  @tex sales@@gnu.org @end tex
++@tab Orders:
++@tex sales@@gnu.org
++@end tex
+ @item 51 Franklin Street, Fifth Floor
+ @tab Tel 617-542-5942
+ @item Boston, MA 02110-1301 USA
 diff -ru gcc-4.4.7.old/gcc/doc/invoke.texi gcc-4.4.7/gcc/doc/invoke.texi
---- gcc-4.4.7.old/gcc/doc/invoke.texi	2014-10-21 06:00:40.320002379 +0200
-+++ gcc-4.4.7/gcc/doc/invoke.texi	2014-10-21 06:14:59.046790433 +0200
+--- gcc-4.4.7.old/gcc/doc/invoke.texi	2018-05-17 10:22:49.896638881 +0200
++++ gcc-4.4.7/gcc/doc/invoke.texi	2018-05-17 10:23:00.024743050 +0200
 @@ -4649,11 +4649,11 @@
  @option{-fdump-rtl-ce3} enable dumping after the three
  if conversion passes. 
