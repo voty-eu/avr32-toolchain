@@ -1,0 +1,12 @@
+diff -ru gcc-4.4.7.orig/contrib/texi2pod.pl gcc-4.4.7/contrib/texi2pod.pl
+--- gcc-4.4.7.orig/contrib/texi2pod.pl	2019-03-30 06:21:09.251119602 +0100
++++ gcc-4.4.7/contrib/texi2pod.pl	2019-03-30 06:28:03.103446784 +0100
+@@ -314,7 +314,7 @@
+ 	@columns = ();
+ 	for $column (split (/\s*\@tab\s*/, $1)) {
+ 	    # @strong{...} is used a @headitem work-alike
+-	    $column =~ s/^\@strong{(.*)}$/$1/;
++	    $column =~ s/^\@strong\{(.*)\}$/$1/;
+ 	    push @columns, $column;
+ 	}
+ 	$_ = "\n=item ".join (" : ", @columns)."\n";
