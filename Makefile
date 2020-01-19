@@ -93,8 +93,8 @@ DFU_MD5 = 707dcd0f957a74e92456ea6919faa772
 AUTOCONF_VERSION = 2.64
 AUTOMAKE_VERSION = 1.11
 MPC_VERSION = 0.8.1
-<<<<<<< HEAD
 GPERF_VERSION = 3.0.4
+TEXINFO_VERSION = 4.13
 
 AUTOCONF_ARCHIVE = autoconf-$(AUTOCONF_VERSION).tar.bz2
 AUTOCONF_URL = http://ftp.gnu.org/gnu/autoconf/$(AUTOCONF_ARCHIVE)
@@ -108,22 +108,9 @@ GPERF_ARCHIVE = gperf-$(GPERF_VERSION).tar.gz
 GPERF_URL = https://ftp.gnu.org/gnu/gperf/$(GPERF_ARCHIVE)
 GPERF_MD5 = c1f1db32fb6598d6a93e6e88796a8632
 
-
-=======
-TEXINFO_VERSION = 4.13
-
-AUTOCONF_ARCHIVE = autoconf-$(AUTOCONF_VERSION).tar.bz2
-AUTOCONF_URL = https://ftpmirror.gnu.org/autoconf/$(AUTOCONF_ARCHIVE)
-AUTOCONF_MD5 = ef400d672005e0be21e0d20648169074
-
-AUTOMAKE_ARCHIVE = automake-$(AUTOMAKE_VERSION).tar.bz2
-AUTOMAKE_URL = https://ftpmirror.gnu.org/automake/$(AUTOMAKE_ARCHIVE)
-AUTOMAKE_MD5 = 4db4efe027e26b33930a7e151de19d0f
-
 TEXINFO_ARCHIVE = texinfo-$(TEXINFO_VERSION)a.tar.gz
 TEXINFO_URL = https://ftpmirror.gnu.org/texinfo/$(TEXINFO_ARCHIVE)
 TEXINFO_MD5 = 71ba711519209b5fb583fed2b3d86fcb
->>>>>>> remotes/daniel/fix-build
 
 .PHONY: install-tools
 install-tools: stamps/install-binutils stamps/install-final-gcc stamps/install-newlib stamps/install-headers
@@ -159,11 +146,7 @@ install-note: install-tools
 
 
 .PHONY: install-supp-tools
-<<<<<<< HEAD
-install-supp-tools stamps/install-supp-tools: install-autoconf install-automake install-gperf
-=======
-install-supp-tools stamps/install-supp-tools: install-autoconf install-automake install-texinfo
->>>>>>> remotes/daniel/fix-build
+install-supp-tools stamps/install-supp-tools: install-autoconf install-automake install-gperf install-texinfo
 	[ -d stamps ] || mkdir stamps ;
 	touch stamps/install-supp-tools;
 
