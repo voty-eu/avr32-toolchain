@@ -93,6 +93,7 @@ DFU_MD5 = 707dcd0f957a74e92456ea6919faa772
 AUTOCONF_VERSION = 2.64
 AUTOMAKE_VERSION = 1.11
 MPC_VERSION = 0.8.1
+<<<<<<< HEAD
 GPERF_VERSION = 3.0.4
 
 AUTOCONF_ARCHIVE = autoconf-$(AUTOCONF_VERSION).tar.bz2
@@ -108,6 +109,21 @@ GPERF_URL = https://ftp.gnu.org/gnu/gperf/$(GPERF_ARCHIVE)
 GPERF_MD5 = c1f1db32fb6598d6a93e6e88796a8632
 
 
+=======
+TEXINFO_VERSION = 4.13
+
+AUTOCONF_ARCHIVE = autoconf-$(AUTOCONF_VERSION).tar.bz2
+AUTOCONF_URL = https://ftpmirror.gnu.org/autoconf/$(AUTOCONF_ARCHIVE)
+AUTOCONF_MD5 = ef400d672005e0be21e0d20648169074
+
+AUTOMAKE_ARCHIVE = automake-$(AUTOMAKE_VERSION).tar.bz2
+AUTOMAKE_URL = https://ftpmirror.gnu.org/automake/$(AUTOMAKE_ARCHIVE)
+AUTOMAKE_MD5 = 4db4efe027e26b33930a7e151de19d0f
+
+TEXINFO_ARCHIVE = texinfo-$(TEXINFO_VERSION)a.tar.gz
+TEXINFO_URL = https://ftpmirror.gnu.org/texinfo/$(TEXINFO_ARCHIVE)
+TEXINFO_MD5 = 71ba711519209b5fb583fed2b3d86fcb
+>>>>>>> remotes/daniel/fix-build
 
 .PHONY: install-tools
 install-tools: stamps/install-binutils stamps/install-final-gcc stamps/install-newlib stamps/install-headers
@@ -143,7 +159,11 @@ install-note: install-tools
 
 
 .PHONY: install-supp-tools
+<<<<<<< HEAD
 install-supp-tools stamps/install-supp-tools: install-autoconf install-automake install-gperf
+=======
+install-supp-tools stamps/install-supp-tools: install-autoconf install-automake install-texinfo
+>>>>>>> remotes/daniel/fix-build
 	[ -d stamps ] || mkdir stamps ;
 	touch stamps/install-supp-tools;
 
@@ -218,6 +238,38 @@ install-automake stamps/install-automake:  stamps/build-automake
 	$(MAKE) install
 	[ -d stamps ] || mkdir stamps
 	touch stamps/install-automake;
+
+
+############ SUPP: TEXINFO ############
+
+.PHONY: download-texinfo
+downloads/$(TEXINFO_ARCHIVE) download-texinfo:
+	[ -d downloads ] || mkdir downloads ;
+	cd downloads && curl -LO $(TEXINFO_URL)
+
+.PHONY: extract-texinfo
+extract-texinfo stamps/extract-texinfo: downloads/$(TEXINFO_ARCHIVE)
+	@(t1=`openssl md5 $< | cut -f 2 -d " " -` && \
+	[ "$$t1" = "$(TEXINFO_MD5)" ] || \
+	( echo "Bad Checksum! Please remove the following file and retry: $<" && false ))
+	tar -zxf $< ;
+	[ -d stamps ] || mkdir stamps ;
+	touch stamps/extract-texinfo;
+
+.PHONY: build-texinfo
+build-texinfo stamps/build-texinfo: stamps/extract-texinfo stamps/install-autoconf
+	mkdir -p build/texinfo && cd build/texinfo && \
+	../../texinfo-$(TEXINFO_VERSION)/configure --prefix="$(SUPP_PREFIX)" && \
+	$(MAKE) -j$(PROCS)
+	[ -d stamps ] || mkdir stamps
+	touch stamps/build-texinfo;
+
+.PHONY: install-texinfo
+install-texinfo stamps/install-texinfo:  stamps/build-texinfo
+	cd build/texinfo && \
+	$(MAKE) install
+	[ -d stamps ] || mkdir stamps
+	touch stamps/install-texinfo;
 
 
 
@@ -513,13 +565,15 @@ CFLAGS_FOR_TARGET=-ffunction-sections -fdata-sections			\
 -Os -fno-unroll-loops
 CXXFLAGS_FOR_TARGET=$(CFLAGS_FOR_TARGET) -fno-exceptions
 
+CFLAGS="-O2 -g -fgnu89-inline"
+
 .PHONY: build-gcc
 build-gcc stamps/build-gcc: stamps/install-binutils stamps/prep-gcc
 	mkdir -p build/gcc && cd build/gcc && \
 	pushd ../../gcc-$(GCC_VERSION) ; \
 	make clean ; \
 	popd ; \
-	../../gcc-$(GCC_VERSION)/configure --prefix="$(PREFIX)"		\
+	CFLAGS=$(CFLAGS) ../../gcc-$(GCC_VERSION)/configure --prefix="$(PREFIX)"		\
 	--target=$(TARGET) --enable-languages="c" --with-gnu-ld		\
 	--with-gnu-as --with-newlib --disable-nls --disable-libssp	\
 	--with-dwarf2 --enable-version-specific-runtime-libs --disable-libstdcxx-pch	\
@@ -561,7 +615,7 @@ build-final-gcc stamps/build-final-gcc: stamps/install-binutils stamps/install-g
 	pushd ../../gcc-$(GCC_VERSION) ; \
 	make clean ; \
 	popd ; \
-	../../gcc-$(GCC_VERSION)/configure --prefix=$(PREFIX) \
+	CFLAGS=$(CFLAGS) ../../gcc-$(GCC_VERSION)/configure --prefix=$(PREFIX) \
 	--target=$(TARGET) $(DEPENDENCIES) --enable-languages="c,c++" --with-gnu-ld \
 	--with-gnu-as --with-newlib --disable-nls --disable-libssp \
 	--with-dwarf2 --enable-version-specific-runtime-libs --disable-libstdcxx-pch \
@@ -634,4 +688,4 @@ mpfr: gmp mpfr-$(CS_BASE)/ sudomode
 
 .PHONY : clean
 clean:
-	rm -rf build *-$(CS_BASE) binutils-* gcc-* newlib-* mpc-* $(LOCAL_BASE) dfu-programmer-* autoconf-* automake-* stamps source supp avr32-patches atmel-headers-*
+	rm -rf build *-$(CS_BASE) binutils-* gcc-* newlib-* texinfo-* mpc-* $(LOCAL_BASE) dfu-programmer-* autoconf-* automake-* stamps source supp avr32-patches atmel-headers-*
