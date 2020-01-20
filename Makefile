@@ -429,7 +429,6 @@ patch-binutils stamps/patch-binutils: stamps/extract-binutils stamps/extract-avr
 	for f in ../avr32-patches/binutils/*.patch; do \
 	patch -N -p0 <$${f} ; \
 	done ; \
-	patch -N -p1 <../patches/binutils/00-texinfo-5.0-support.patch ; \
 	popd ; \
 	[ -d stamps ] || mkdir stamps
 	touch stamps/patch-binutils;
