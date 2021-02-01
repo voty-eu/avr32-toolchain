@@ -27,7 +27,7 @@ BINUTILS_VERSION = 2.23.1
 NEWLIB_VERSION   = 1.19.0
 DFU_VERSION      = 0.5.4
 AVR32_PATCH_REV	 = 3.4.2
-ATMEL_HEADER_REV = 6.1.3.1475
+ATMEL_HEADER_REV = UC3C_DFP.1.0.77
 
 
 #### PATHS AND ENVIRONMENT VARIABLES #####
@@ -73,16 +73,16 @@ BINUTILS_URL = https://ftp.gnu.org/gnu/binutils/$(BINUTILS_ARCHIVE)
 BINUTILS_MD5 = 33adb18c3048d057ac58d07a3f1adb38
 
 NEWLIB_ARCHIVE = newlib-$(NEWLIB_VERSION).tar.gz
-NEWLIB_URL = ftp://sources.redhat.com/pub/newlib/$(NEWLIB_ARCHIVE)
+NEWLIB_URL = ftp://sourceware.org/pub/newlib/$(NEWLIB_ARCHIVE)
 NEWLIB_MD5 = 0966e19f03217db9e9076894b47e6601
 
 AVR32PATCHES_ARCHIVE = avr32-patches.tar.gz
 AVR32PATCHES_URL = http://distribute.atmel.no/tools/opensource/Atmel-AVR32-GNU-Toolchain/$(AVR32_PATCH_REV)/$(AVR32PATCHES_ARCHIVE)
 AVR32PATCHES_MD5 = 99b2f4497d264c9200538bb1229fdef9
 
-AVR32HEADERS_ARCHIVE = atmel-headers-$(ATMEL_HEADER_REV).zip
-AVR32HEADERS_URL = http://www.atmel.com/Images/$(AVR32HEADERS_ARCHIVE)
-AVR32HEADERS_MD5 = d69e8e188470e4fea68a4650442b5750
+AVR32HEADERS_ARCHIVE = Atmel.$(ATMEL_HEADER_REV).atpack
+AVR32HEADERS_URL = http://packs.download.atmel.com/Atmel.$(ATMEL_HEADER_REV).atpack
+AVR32HEADERS_MD5 = e8f0f0c6e10c187d2e551d115ac07986
 
 DFU_ARCHIVE = dfu-programmer-$(DFU_VERSION).tar.gz
 DFU_URL = http://surfnet.dl.sourceforge.net/project/dfu-programmer/dfu-programmer/$(DFU_VERSION)/$(DFU_ARCHIVE)
@@ -315,13 +315,14 @@ extract-headers stamps/extract-headers : downloads/$(AVR32HEADERS_ARCHIVE)
 	@(t1=`openssl md5 $< | cut -f 2 -d " " -` && \
 	[ "$$t1" = "$(AVR32HEADERS_MD5)" ] || \
 	( echo "Bad Checksum! Please remove the following file and retry: $<" && false ))
-	unzip -o $<
+	mkdir atmel-headers-$(ATMEL_HEADER_REV)
+	unzip -o $< -d atmel-headers-$(ATMEL_HEADER_REV)
 	mkdir -p stamps
 	touch stamps/extract-headers
 
 .PHONY: install-headers
 install-headers stamps/install-headers : stamps/extract-headers stamps/install-final-gcc
-	cp -r atmel-headers-$(ATMEL_HEADER_REV)/$(TARGET) $(PREFIX)/$(TARGET)/include/$(TARGET)
+	cp -r atmel-headers-$(ATMEL_HEADER_REV)/include $(PREFIX)/$(TARGET)/include/$(TARGET)-headers
 	mkdir -p stamps
 	touch stamps/install-headers
 
